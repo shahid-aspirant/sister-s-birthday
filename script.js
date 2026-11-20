@@ -5,7 +5,7 @@ const CONFIG = {
   heroLine: "May this year be gentle, bright, and full of everything you love. ✨",
   footer: "You are loved, always.",
   // Optional: put an mp3 next to index.html and set e.g. "music.mp3". Leave "" to use the built-in birthday tune.
-  musicFile: "/song.mp3",
+  musicFile: "song.mp3",
   wishes: [
     ["🌸","May your day bloom with joy."],
     ["✨","May every wish you make come true."],
@@ -147,12 +147,17 @@ function next() {
 }
 function startMusic() {
   playing = true; $('#music').classList.add('on'); $('#music').textContent = '⏸️';
-  if (CONFIG.musicFile) {
-    audioEl = audioEl || Object.assign(new Audio(CONFIG.musicFile), {loop:true, volume:.6});
-    audioEl.play().catch(() => {});
-  } else {
+  const synth = () => {
+    audioEl = null;
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
     actx.resume(); next();
+  };
+  if (CONFIG.musicFile) {
+    audioEl = audioEl || Object.assign(new Audio(CONFIG.musicFile), {loop:true, volume:.6});
+    audioEl.onerror = synth;
+    audioEl.play().catch(() => { if (audioEl && audioEl.error) synth(); });
+  } else {
+    synth();
   }
 }
 function stopMusic() {

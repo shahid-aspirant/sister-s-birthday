@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday, Enas! 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="locked">
+
+<!-- PERSONALIZE: edit CONFIG in script.js -->
+
+<canvas id="confetti"></canvas>
+
+<div id="welcome">
+  <div>
+    <span class="gift">🎁</span>
+    <h1>A little surprise<br>for Enas</h1>
+    <p>Made with love, just for you ✨</p>
+    <button class="btn" id="openBtn">Open Your Surprise 💖</button>
+  </div>
+</div>
+
+<button id="music" aria-label="Play or pause music" title="Music">🎵</button>
+
+<main>
+  <section id="hero">
+    <div class="hero-in">
+      <p class="small script" style="font-size:2rem">Today the world got a little brighter…</p>
+      <h1 id="heroTitle">Happy Birthday, Enas!</h1>
+      <p class="age" id="heroLine"></p>
+      <span class="scroll">scroll down ⌄</span>
+    </div>
+  </section>
+
+  <section id="wishes">
+    <h2>Wishes for You</h2>
+    <p class="sub">A little bundle of happiness, just for today 🌸</p>
+    <div class="wishes" id="wishGrid"></div>
+  </section>
+
+  <section id="letter">
+    <h2>From Your Brother</h2>
+    <p class="sub">Read this one slowly 💌</p>
+    <div class="letter" id="letterBox"></div>
+  </section>
+
+  <section id="gallery">
+    <h2>Our Pictures</h2>
+    <p class="sub">Every picture is a little piece of us 📸</p>
+    <div class="grid" id="photoGrid"></div>
+  </section>
+
+  <section id="cakeSec" class="cake-wrap">
+    <h2>Make a Wish</h2>
+    <p class="sub">Tap each candle, or blow them all out at once 🕯️</p>
+    <svg id="cake" viewBox="0 0 320 300" aria-label="Birthday cake with candles">
+      <ellipse cx="160" cy="278" rx="140" ry="16" fill="#e4d6ff"/>
+      <rect x="40" y="190" width="240" height="85" rx="20" fill="#ffc2dc"/>
+      <path d="M40 210q20 22 40 0t40 0 40 0 40 0 40 0 40 0v-15H40z" fill="#fff"/>
+      <rect x="70" y="120" width="180" height="75" rx="18" fill="#d9c4ff"/>
+      <path d="M70 140q15 20 30 0t30 0 30 0 30 0 30 0 30 0v-12H70z" fill="#fff"/>
+      <circle cx="105" cy="168" r="6" fill="#f6c85f"/><circle cx="160" cy="172" r="6" fill="#ff9ec9"/><circle cx="215" cy="168" r="6" fill="#f6c85f"/>
+      <circle cx="75" cy="248" r="6" fill="#fff"/><circle cx="130" cy="252" r="6" fill="#f6c85f"/><circle cx="190" cy="252" r="6" fill="#fff"/><circle cx="245" cy="248" r="6" fill="#f6c85f"/>
+      <g class="candle" data-i="0"><rect x="112" y="84" width="12" height="38" rx="4" fill="#ff9ec9"/><path class="flame" d="M118 54c-9 12-9 22 0 27 9-5 9-15 0-27z" fill="#ffb347"/><path class="flame" d="M118 64c-4 6-4 11 0 14 4-3 4-8 0-14z" fill="#fff3a8"/></g>
+      <g class="candle" data-i="1"><rect x="154" y="78" width="12" height="44" rx="4" fill="#b79cf0"/><path class="flame" d="M160 48c-9 12-9 22 0 27 9-5 9-15 0-27z" fill="#ffb347"/><path class="flame" d="M160 58c-4 6-4 11 0 14 4-3 4-8 0-14z" fill="#fff3a8"/></g>
+      <g class="candle" data-i="2"><rect x="196" y="84" width="12" height="38" rx="4" fill="#f6c85f"/><path class="flame" d="M202 54c-9 12-9 22 0 27 9-5 9-15 0-27z" fill="#ffb347"/><path class="flame" d="M202 64c-4 6-4 11 0 14 4-3 4-8 0-14z" fill="#fff3a8"/></g>
+    </svg>
+    <div id="cakeMsg">Close your eyes and think of something wonderful…</div>
+    <div class="btns">
+      <button class="btn" id="blowBtn">Blow the candles 🌬️</button>
+      <button class="btn gold" id="relightBtn">Light them again 🔥</button>
+    </div>
+  </section>
+
+  <section id="surprise" class="surprise">
+    <h2>One More Surprise</h2>
+    <p class="sub">Tap the gift. Then tap it again. And again 🎀</p>
+    <button id="giftBox" aria-label="Open a surprise">🎁</button>
+    <div id="surpriseText">Tap the gift to open a little note…</div>
+  </section>
+
+  <section id="memories">
+    <h2>Memories We Keep</h2>
+    <p class="sub">A few moments I will never forget 🦋</p>
+    <div class="timeline" id="memList"></div>
+  </section>
+</main>
+
+<footer>
+  <p class="script" id="footLine"></p>
+  <p style="margin-top:.4rem">Happy Birthday, Enas. 💖</p>
+  <button class="btn gold" id="againBtn" style="margin-top:1.4rem">Celebrate again 🎉</button>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

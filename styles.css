@@ -56,6 +56,25 @@ box-shadow:0 18px 50px rgba(224,169,58,.25);max-width:700px;margin:auto;position
 
 
 
+/* gallery */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:920px;margin:auto}
+.ph{background:#fff;padding:.85rem .85rem 1.2rem;border-radius:16px;box-shadow:0 14px 34px rgba(150,100,180,.2);transform:rotate(var(--t,0deg));transition:transform .3s ease,box-shadow .3s ease;position:relative}
+.ph:nth-child(1){--t:-2deg}
+.ph:nth-child(2){--t:1.5deg}
+.ph:nth-child(3){--t:-1.5deg}
+.ph:hover{transform:rotate(0) translateY(-6px) scale(1.03);box-shadow:0 20px 42px rgba(150,100,180,.3);z-index:5}
+.ph .img{aspect-ratio:3/4;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--pink),var(--lav));display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.ph .img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.ph:hover .img img{transform:scale(1.04)}
+.ph p{text-align:center;margin-top:.85rem;font-family:'Dancing Script',cursive;font-size:1.45rem;color:#7a3c75;cursor:text}
+
+/* lightbox modal */
+.lightbox{position:fixed;inset:0;background:rgba(20,10,25,.88);backdrop-filter:blur(10px);z-index:120;display:none;place-items:center;padding:1.5rem;opacity:0;transition:opacity .3s ease;cursor:pointer}
+.lightbox.active{display:grid;opacity:1}
+.lightbox img{max-width:90vw;max-height:82vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);object-fit:contain;animation:pop .3s ease-out}
+.lightbox p{color:#fff;font-family:'Dancing Script',cursive;font-size:1.8rem;margin-top:.8rem;text-shadow:0 2px 8px rgba(0,0,0,.5);text-align:center}
+.close-lb{position:absolute;top:20px;right:25px;font-size:2.4rem;color:#fff;cursor:pointer;line-height:1}
+
 /* cake */
 .cake-wrap{text-align:center}
 #cake{width:min(320px,80vw);margin:1rem auto;display:block;filter:drop-shadow(0 14px 18px rgba(150,80,140,.3))}

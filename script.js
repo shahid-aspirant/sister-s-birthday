@@ -36,6 +36,11 @@ const CONFIG = {
     "Today the whole day is yours. Be the princess. 👑",
     "Coupon: one big hug, delivered on demand. 🤗",
     "Fun fact: the world is a better place with you in it. 🌍"
+  ],
+  photos: [
+    {src: "images/photo1.png", caption: "Radiant & Graceful ✨", position: "center 12%"},
+    {src: "images/photo2.png", caption: "That Beautiful Smile 🌸", position: "center 10%"},
+    {src: "images/photo3.png", caption: "Lighting up every moment 💫", position: "center 18%"}
   ]
 };
 /* ============ END PERSONALIZE ============ */
@@ -51,7 +56,29 @@ $('#footLine').textContent = CONFIG.footer;
 $('#wishGrid').innerHTML = CONFIG.wishes.map(w => `<div class="wish"><b>${w[0]}</b>${esc(w[1])}</div>`).join('');
 $('#letterBox').innerHTML = CONFIG.letter.map((p,i) => `<p class="${i?'':'to script'}">${esc(p)}</p>`).join('') + `<p class="sign script">${esc(CONFIG.from)}</p>`;
 if ($('#photoGrid') && CONFIG.photos) {
-  $('#photoGrid').innerHTML = CONFIG.photos.map((p,i) => `<figure class="ph"><div class="img"><img src="${p.src}" alt="${esc(p.caption)}"></div><p contenteditable="true" spellcheck="false">${esc(p.caption)}</p></figure>`).join('');
+  $('#photoGrid').innerHTML = CONFIG.photos.map((p,i) => `
+    <figure class="ph" data-idx="${i}">
+      <div class="img" title="Click to view full photo">
+        <img src="${p.src}" alt="${esc(p.caption)}" style="object-position:${p.position || 'center 15%'}" loading="lazy">
+      </div>
+      <p contenteditable="true" spellcheck="false">${esc(p.caption)}</p>
+    </figure>
+  `).join('');
+
+  const lb = $('#lightbox');
+  const lbImg = $('#lightboxImg');
+  const lbCap = $('#lightboxCaption');
+  if (lb && lbImg) {
+    document.querySelectorAll('.ph .img').forEach((wrap, i) => {
+      wrap.onclick = () => {
+        const p = CONFIG.photos[i];
+        lbImg.src = p.src;
+        lbCap.textContent = p.caption;
+        lb.classList.add('active');
+      };
+    });
+    lb.onclick = () => lb.classList.remove('active');
+  }
 }
 if ($('#memList') && CONFIG.memories) {
   $('#memList').innerHTML = CONFIG.memories.map(m => `<div class="mem"><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p></div>`).join('');

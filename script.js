@@ -29,7 +29,7 @@ const CONFIG = {
     "I love you more than this little website can show. Have the most beautiful birthday."
   ],
   surprises: [
-    "You are my favorite sister. (Don't tell anyone else.) 💖",
+    "You are also my  sister.💖",
     "Coupon: one free favorite snack, redeemable anytime. 🍫",
     "You are braver than you think, Chaitanya Sister. 🌟",
     "Reminder: you are loved, and I am so proud of you. 🥹",

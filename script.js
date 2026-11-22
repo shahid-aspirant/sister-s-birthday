@@ -1,10 +1,10 @@
 /* ============ PERSONALIZE HERE ============ */
 const CONFIG = {
-  name: "Enas",
+  name: "Chaitanya Sister",
   from: "Your brother, Mohammad",
   heroLine: "May this year be gentle, bright, and full of everything you love. ✨",
   footer: "You are loved, always.",
-  // Optional: put an mp3 next to index.html and set e.g. "music.mp3". Leave "" to use the built-in birthday tune.
+  // Optional: put an mp3 next to index.html and set e.g. "song.mp3". Leave "" to use the built-in birthday tune.
   musicFile: "song.mp3",
   wishes: [
     ["🌸","May your day bloom with joy."],
@@ -12,7 +12,7 @@ const CONFIG = {
     ["💖","You deserve all the love in the world."],
     ["🌈","May this year paint your life in happy colors."],
     ["🦋","May you always feel light and free."],
-    ["☀️","Stay as bright as you are, Enas."],
+    ["☀️","Stay as bright as you are, Chaitanya Sister."],
     ["🍰","Wishing you sweet days and sweeter moments."],
     ["🌙","May your nights be peaceful and your dreams brave."],
     ["💫","Your smile makes everything better."],
@@ -21,29 +21,17 @@ const CONFIG = {
     ["👑","You are strong, kind, and wonderful."]
   ],
   letter: [
-    "Dear Enas,",
+    "Dear Chaitanya Sister,",
     "Happy birthday, my dear sister. I wanted to make something that does what words alone never quite manage: tell you how much you mean to me.",
     "Thank you for being the person you are. Your kindness, your laughter, and the way you care about the people around you make our family brighter.",
     "I may not say it often enough, but I am proud of you. Whatever you dream of, whatever you choose, I will be right behind you, cheering the loudest.",
     "On the hard days, call me. On the happy days, call me too. I am always on your side, now and forever.",
     "I love you more than this little website can show. Have the most beautiful birthday."
   ],
-  // Photos from the images folder
-  photos: [
-    {src:"images/photo1.png", caption:"A beautiful memory"},
-    {src:"images/photo2.png", caption:"A favorite moment"},
-    {src:"images/photo3.png", caption:"Always in my heart"}
-  ],
-  memories: [
-    {title:"Our childhood days", text:"Replace this with a memory you both love: a trip, a joke, a silly moment."},
-    {title:"A time you made me laugh", text:"Write a short caption here. Keep it sweet and personal."},
-    {title:"The day you supported me", text:"Tell her about a moment she was there for you."},
-    {title:"Our favorite place", text:"A place, a meal, a song. Anything that says 'us'."}
-  ],
   surprises: [
     "You are my favorite sister. (Don't tell anyone else.) 💖",
     "Coupon: one free favorite snack, redeemable anytime. 🍫",
-    "You are braver than you think, Enas. 🌟",
+    "You are braver than you think, Chaitanya Sister. 🌟",
     "Reminder: you are loved, and I am so proud of you. 🥹",
     "Today the whole day is yours. Be the princess. 👑",
     "Coupon: one big hug, delivered on demand. 🤗",
@@ -62,8 +50,12 @@ $('#heroLine').textContent = CONFIG.heroLine;
 $('#footLine').textContent = CONFIG.footer;
 $('#wishGrid').innerHTML = CONFIG.wishes.map(w => `<div class="wish"><b>${w[0]}</b>${esc(w[1])}</div>`).join('');
 $('#letterBox').innerHTML = CONFIG.letter.map((p,i) => `<p class="${i?'':'to script'}">${esc(p)}</p>`).join('') + `<p class="sign script">${esc(CONFIG.from)}</p>`;
-$('#photoGrid').innerHTML = CONFIG.photos.map((p,i) => `<figure class="ph"><div class="img"><img src="${p.src}" alt="${esc(p.caption)}" onerror="this.parentNode.innerHTML='<div><span>📷</span>Photo ${i+1}<br>Replace with<br>${p.src}</div>'"></div><p contenteditable="true" spellcheck="false">${esc(p.caption)}</p></figure>`).join('');
-$('#memList').innerHTML = CONFIG.memories.map(m => `<div class="mem"><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p></div>`).join('');
+if ($('#photoGrid') && CONFIG.photos) {
+  $('#photoGrid').innerHTML = CONFIG.photos.map((p,i) => `<figure class="ph"><div class="img"><img src="${p.src}" alt="${esc(p.caption)}"></div><p contenteditable="true" spellcheck="false">${esc(p.caption)}</p></figure>`).join('');
+}
+if ($('#memList') && CONFIG.memories) {
+  $('#memList').innerHTML = CONFIG.memories.map(m => `<div class="mem"><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p></div>`).join('');
+}
 
 // reveal wishes on scroll
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.2});
@@ -127,17 +119,20 @@ function tick() {
 }
 function burst(n) { confetti(n, innerWidth*.2, innerHeight*.5); confetti(n, innerWidth*.8, innerHeight*.5); confetti(n, innerWidth*.5, innerHeight*.25); }
 
-// music: optional mp3, else a soft synthesized birthday tune
-let audioEl = null, actx = null, playing = false, timer = null, step = 0;
+// music: mp3 file with soft synthesized birthday tune as reliable fallback
+let audioEl = $('#bgMusic');
+let actx = null, playing = false, timer = null, step = 0;
 const N = {C4:262,D4:294,E4:330,F4:349,G4:392,A4:440,B4:494,C5:523,D5:587,E5:659,F5:698,G5:784};
 const TUNE = [['G4',.75],['G4',.25],['A4',1],['G4',1],['C5',1],['B4',2],['G4',.75],['G4',.25],['A4',1],['G4',1],['D5',1],['C5',2],
   ['G4',.75],['G4',.25],['G5',1],['E5',1],['C5',1],['B4',1],['A4',2],['F5',.75],['F5',.25],['E5',1],['C5',1],['D5',1],['C5',2.5]];
+
 function note(f, d) {
   const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
   o.type = 'triangle'; o.frequency.value = f;
   g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.16, t + .03); g.gain.exponentialRampToValueAtTime(.001, t + d);
   o.connect(g).connect(actx.destination); o.start(t); o.stop(t + d + .05);
 }
+
 function next() {
   if (!playing) return;
   const [n, b] = TUNE[step % TUNE.length], d = b * .42;
@@ -145,32 +140,50 @@ function next() {
   step++;
   timer = setTimeout(next, d * 1000 + (step % TUNE.length === 0 ? 1500 : 0));
 }
+
+function startSynth() {
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+  if (actx.state === 'suspended') actx.resume();
+  next();
+}
+
 function startMusic() {
-  playing = true; $('#music').classList.add('on'); $('#music').textContent = '⏸️';
-  const synth = () => {
-    audioEl = null;
-    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-    actx.resume(); next();
-  };
-  if (CONFIG.musicFile) {
-    audioEl = audioEl || Object.assign(new Audio(CONFIG.musicFile), {loop:true, volume:.6});
-    audioEl.onerror = synth;
-    audioEl.play().catch(() => { if (audioEl && audioEl.error) synth(); });
+  playing = true;
+  $('#music').classList.add('on');
+  $('#music').textContent = '⏸️';
+
+  if (!audioEl) audioEl = $('#bgMusic');
+
+  if (CONFIG.musicFile && audioEl) {
+    audioEl.volume = 0.6;
+    const playPromise = audioEl.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(err => {
+        console.warn('Audio play prevented or failed, fallback to synth:', err);
+        startSynth();
+      });
+    }
   } else {
-    synth();
+    startSynth();
   }
 }
+
 function stopMusic() {
-  playing = false; clearTimeout(timer); $('#music').classList.remove('on'); $('#music').textContent = '🎵';
+  playing = false;
+  clearTimeout(timer);
+  $('#music').classList.remove('on');
+  $('#music').textContent = '🎵';
   if (audioEl) audioEl.pause();
 }
+
 $('#music').onclick = () => playing ? stopMusic() : startMusic();
 
 // open
 $('#openBtn').onclick = () => {
   $('#welcome').classList.add('gone');
   document.body.classList.remove('locked');
-  burst(130); startMusic();
+  burst(130);
+  startMusic();
   for (let i = 0; i < 14; i++) setTimeout(heart, i * 80);
 };
 
